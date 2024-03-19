@@ -1,12 +1,102 @@
-<h1>Timer</h1>
+<h1 class="timer-title">Ro's Timer</h1>
+<div class="timer-container">
+  <h3 id="timer" class="timer-container__label">
+    5:00
+  </h3>
+  <button class="start-button">Start</button>
+</div>
 
-<style></style>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Merriweather:wght@900&family=Montserrat:wght@300&display=swap');
+
+  body {
+    background-color: #8ed799;
+  }
+  .timer-title{
+    font-family: "Gochi Hand", cursive;
+    font-size: 4rem;
+  }
+  .timer-container{
+    position: relative;
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+    background-color: rgb(174, 43, 43);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .timer-container__label{
+    /* position: absolute; */
+    /* width: 300px; */
+    height: 100px;
+    margin-top: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    margin-bottom: 5px;
+    font-family: "Gochi Hand", cursive;
+  }
+
+  .start-button {
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    width: 5em;
+    position: relative;
+    height: 3.5em;
+    border: 3px ridge #8ed799;
+    outline: none;
+    background-color: transparent;
+    color: white;
+    transition: 1s;
+    border-radius: 0.8em;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .start-button::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 7%;
+    width: 86%;
+    height: 40%;
+    background-color: rgb(174, 43, 43);
+    transition: 0.5s;
+    transform-origin: center;
+  }
+
+  .start-button::before {
+    content: "";
+    transform-origin: center;
+    position: absolute;
+    top: 80%;
+    left: 7%;
+    width: 86%;
+    height: 40%;
+    background-color: rgb(174, 43, 43);
+    transition: 0.5s;
+  }
+
+  .start-button:hover::before, button:hover::after {
+    transform: scale(0)
+  }
+
+  .start-button:hover {
+    box-shadow: inset 0px 0px 25px #8ed799;
+  }
+
+</style>
 
 <script>
   const button = document.querySelector('.start-button')
-  const timer = document.querySelector('.timer')
+  const timer = document.querySelector('#timer')
+
   button?.addEventListener('click', () => {
-    let count = 60 * 5
+    let count = 60*5
     const interval = setInterval(() => {
       count--
       const minutes = Math.floor(count / 60).toString().padStart(2, '0')
@@ -20,4 +110,5 @@
       }
     }, 1000)
   })
+
 </script>
