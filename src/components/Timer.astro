@@ -94,9 +94,9 @@
 <script>
   const button = document.querySelector('.start-button')
   const timer = document.querySelector('#timer')
-
+  let count =60*5
   button?.addEventListener('click', () => {
-    let count = 60*5
+    count = 60*5
     const interval = setInterval(() => {
       count--
       const minutes = Math.floor(count / 60).toString().padStart(2, '0')
@@ -105,8 +105,10 @@
       if (timer) {
         timer.innerHTML = text
       }
-      if (count <= 0) {
+      if (count < 0 && timer) {
+        timer.innerHTML = '5:00'
         clearInterval(interval)
+        alert("Listo");
       }
     }, 1000)
   })
