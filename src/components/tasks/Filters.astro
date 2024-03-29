@@ -1,0 +1,53 @@
+---
+import ControlButton from "./ControlButton.astro";
+---
+
+<div data-selector="filters">
+  <ControlButton selector="all" active>All</ControlButton>
+  <ControlButton selector="active">Active</ControlButton>
+  <ControlButton selector="completed">Completed</ControlButton>
+</div>
+
+<script>
+  import { getLi } from "../../helpers";
+  const filters = document.querySelector('[data-selector="filters"]')!;
+  filters.addEventListener("click", (e) => {
+    const target = e.target as HTMLElement
+    if (target.tagName !== "BUTTON") {
+      return;
+    }
+    document.querySelector('button.active')?.classList.remove('active')
+    target.classList.add('active')
+    const selector = target.getAttribute("data-selector");
+    const checkboxEls = document.querySelectorAll('input[type="checkbox"]')
+    if (selector === "control-button-all") {
+      for (const checkboxEl of checkboxEls) {
+        const liEl = getLi(checkboxEl as HTMLElement);
+        liEl.classList.remove('hidden')
+      }
+      return
+    }
+
+    if (selector === "control-button-active") {
+      for (const checkboxEl of document.querySelectorAll('input[type="checkbox"]')) {
+        const liEl = getLi(checkboxEl as HTMLElement);
+        if ((checkboxEl as HTMLInputElement).checked) {
+          liEl.classList.add('hidden')
+        } else {
+          liEl.classList.remove('hidden')
+        }
+      }
+    }
+
+    if (selector === "control-button-completed") {
+      for (const checkboxEl of document.querySelectorAll('input[type="checkbox"]')) {
+        const liEl = getLi(checkboxEl as HTMLElement);
+        if ((checkboxEl as HTMLInputElement).checked) {
+          liEl.classList.remove('hidden')
+        } else {
+          liEl.classList.add('hidden')
+        }
+      }
+    }
+  });
+</script>

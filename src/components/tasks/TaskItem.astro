@@ -1,0 +1,14 @@
+---
+const randomId = Math.random().toString(36).substring(7)
+---
+
+<li data-selector="task-item" class="w-full relative border-t border-stone-500/25">
+  <label for={randomId} class="flex items-center w-full h-20 text-4xl px-4 py-2 select-none cursor-pointer duration-200 hover:translate-x-2">
+    <input id={randomId} type="checkbox" class="absolute peer h-0 w-0" />
+    <span class="hidden peer-checked:block absolute z-10 left-6 text-green-700 text-2xl font-light">✔</span>
+    <span class="relative mr-4 font-extralight text-stone-300">◯</span>
+    <div class="peer-checked:line-through peer-checked:opacity-40" data-selector="item-content">
+      <slot />
+    </div>
+  </label>
+</li>

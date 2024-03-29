@@ -1,0 +1,17 @@
+---
+type Props = {
+  active?: boolean;
+  selector: string
+}
+
+const { active, selector } = Astro.props;
+---
+<button data-selector={`control-button-${selector}`} class={`text-stone-600 p-2 px-4 rounded-sm duration-200 hover:font-bold ${active ? 'active' : ''}`}>
+  <slot />
+</button>
+
+<style>
+  .active {
+    border: 1px solid rgba(244, 96, 96, 0.25);
+  }
+</style>

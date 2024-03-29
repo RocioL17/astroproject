@@ -1,0 +1,49 @@
+---
+import Filters from "./Filters.astro";
+import TaskItem from "./TaskItem.astro";
+import ClearCompletedButton from './ClearCompletedButton.astro'
+---
+
+<section class="w-half bg-white flex flex-col border border-stone-300 shadow-lg">
+  <form data-selector="task-form" class="flex items-center h-20 text-stone-400">
+    <span class="block w-24 text-center text-2xl scale-x-[3] cursor-default">v</span>
+    <input type="text" name="task" class="flex-grow h-20 z-10 text-4xl px-4" placeholder="What needs to be done?">
+  </form>
+  <ul data-selector="task-list">
+    <TaskItem>Go Shopping</TaskItem>
+  </ul>
+  <div class="flex justify-between items-center p-2 border-t border-stone-500/25">
+    <div><span data-selector="item-counter">1</span> items left</div>
+    <Filters />
+    <ClearCompletedButton />
+  </div>
+</section>
+
+<div class="hidden">
+  <TaskItem></TaskItem>
+</div>
+
+<script>
+  import { countTasks } from "../../helpers"
+  const form = document.querySelector('form[data-selector="task-form"]') as HTMLFormElement
+  const exampleTaskItem = document.querySelector('.hidden [data-selector="task-item"]')!
+  const taskListEl = document.querySelector('[data-selector="task-list"]')!
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    const data = new FormData(form)
+    const taskContent = data.get('task')?.toString() ?? ''
+    
+    if (taskContent.length < 3) { return }
+    form.reset()
+    
+    const newItem = exampleTaskItem.cloneNode(true) as HTMLElement
+    const contentEl = newItem.querySelector('[data-selector="item-content"]')!
+    const randomId = Math.random().toString(36).substring(7)
+
+    newItem.querySelector('label')?.setAttribute('for', randomId)
+    newItem.querySelector('input')?.setAttribute('id', randomId)
+    contentEl.innerHTML = taskContent
+    taskListEl.appendChild(newItem)
+    countTasks()
+  })
+</script>

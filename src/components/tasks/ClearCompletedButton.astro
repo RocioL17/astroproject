@@ -1,0 +1,20 @@
+<button
+  data-selector="control-button-clear"
+  class="underline text-stone-400 decoration-stone-400/25"
+  >Clear Completed</button
+>
+
+<script>
+  import { getLi, countTasks } from '../../helpers'
+  const clearCompletedButton = document.querySelector(
+    '[data-selector="control-button-clear"]',
+  )!;
+
+  clearCompletedButton.addEventListener("click", () => {
+    for (const checkboxEl of document.querySelectorAll("input:checked")) {
+      const liEl = getLi(checkboxEl as HTMLElement);
+      liEl.remove();
+    }
+    countTasks()
+  });
+</script>

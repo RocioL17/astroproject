@@ -6,7 +6,7 @@ export default {
 			spacing: {
 				128: '32rem',
 				144: '36rem',
-				
+				'half': '50vw',
 			}
 		},
 	},
